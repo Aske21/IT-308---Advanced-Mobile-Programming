@@ -1,20 +1,8 @@
 import React from 'react';
-import {SafeAreaView, Text, useColorScheme} from 'react-native';
+import App from './src/index';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <Text>hi</Text>
-    </SafeAreaView>
-  );
+function AppContainer(): React.JSX.Element {
+  return <App />;
 }
 
-export default App;
+export default AppContainer;
