@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState, useRef} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {formatTime} from '../../utils/formatTime';
 import {timerStyles} from './style';
@@ -13,29 +14,52 @@ const Timer: React.FC<TimerProps> = ({workDuration, breakDuration}) => {
   const [remainingTime, setRemainingTime] = useState(workDuration);
   const [isWorking, setIsWorking] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
     const handleTick = () => {
-      setRemainingTime(prevTime => prevTime - 1);
+      setRemainingTime(prevTime => {
+        if (prevTime > 0) {
+          return prevTime - 1;
+        } else {
+          setIsWorking(prevIsWorking => {
+            if (prevIsWorking) {
+              setIsWorking(false);
+              setRemainingTime(breakDuration);
+            } else {
+              setIsWorking(true);
+              setRemainingTime(workDuration);
+            }
+            return prevIsWorking;
+          });
+          return prevTime;
+        }
+      });
     };
 
-    if (isRunning && remainingTime > 0) {
-      intervalId = setInterval(handleTick, 1000);
-    } else if (remainingTime === 0 && isWorking) {
-      setIsWorking(false);
-      setIsRunning(false);
-      setRemainingTime(breakDuration);
-      setIsRunning(true);
+    if (isRunning) {
+      intervalRef.current = setInterval(handleTick, 1000);
     }
 
-    return () => clearInterval(intervalId);
-  }, [isRunning, remainingTime, workDuration, breakDuration, isWorking]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isRunning, workDuration, breakDuration]);
+
+  useEffect(() => {
+    if (!isRunning) {
+      setIsWorking(true);
+      setRemainingTime(workDuration);
+    }
+  }, [workDuration, breakDuration]);
 
   const timerToggle = () => {
     setIsRunning(!isRunning);
   };
+
   const timerReset = () => {
     setIsRunning(false);
     setIsWorking(true);

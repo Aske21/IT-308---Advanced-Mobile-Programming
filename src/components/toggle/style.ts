@@ -14,5 +14,6 @@ export const toggleStyles = StyleSheet.create({
     marginBottom: theme.spacing.small,
     color: theme.colors.text,
     fontSize: 16,
+    fontWeight: '600',
   },
 });

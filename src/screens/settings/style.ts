@@ -5,14 +5,11 @@ import {theme} from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: theme.colors.background,
   },
   middleContent: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingVertical: 64,
     gap: theme.spacing.medium,
     paddingHorizontal: theme.spacing.large,
   },
