@@ -28,12 +28,28 @@ const Settings: React.FC = () => {
 
   const handleWorkDurationChange = (text: string) => {
     setWorkDuration(text);
-    dispatch(setWorkTime(parseInt(text) * 60));
+  };
+
+  const handleWorkDurationBlur = (text: string) => {
+    const numericText = text.replace(/[^0-9]/g, '');
+    if (numericText !== '') {
+      dispatch(setWorkTime(parseInt(numericText) * 60));
+    } else {
+      setWorkDuration(`${workTime / 60}`);
+    }
   };
 
   const handleBreakDurationChange = (text: string) => {
     setBreakDuration(text);
-    dispatch(setBreakTime(parseInt(text) * 60));
+  };
+
+  const handleBreakDurationBlur = (text: string) => {
+    const numericText = text.replace(/[^0-9]/g, '');
+    if (numericText !== '') {
+      dispatch(setBreakTime(parseInt(numericText) * 60));
+    } else {
+      setBreakDuration(`${breakTime / 60}`);
+    }
   };
 
   return (
@@ -44,6 +60,7 @@ const Settings: React.FC = () => {
             label={'Work duration (minutes)'}
             value={workDuration}
             onChangeText={handleWorkDurationChange}
+            onBlur={() => handleWorkDurationBlur(workDuration)}
             keyboardType="number-pad"
           />
         </View>
@@ -52,7 +69,8 @@ const Settings: React.FC = () => {
             label={'Break duration (minutes)'}
             value={breakDuration}
             onChangeText={handleBreakDurationChange}
-            keyboardType="number-pad"
+            onBlur={() => handleBreakDurationBlur(breakDuration)}
+            keyboardType="numeric"
           />
         </View>
         <View style={styles.settingItem}>
