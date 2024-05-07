@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {
   BREAK_TIME_CONSTANTS,
   WORK_TIME_CONSTANTS,
-} from '../../constants/timerConstant';
+} from '../../../constants/timerConstant';
 
 interface TimerState {
   workTime: number;

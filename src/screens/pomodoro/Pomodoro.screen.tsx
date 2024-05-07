@@ -10,7 +10,7 @@ import {RootStackParamList} from '../../constants/routeConstant';
 import {
   selectBreakTime,
   selectWorkTime,
-} from '../../redux/slices/timerSelectors';
+} from '../../redux/slices/timer/timerSelectors';
 import {styles} from './style';
 
 type PomodoroNavigationProp = StackNavigationProp<

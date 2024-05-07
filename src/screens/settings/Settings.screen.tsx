@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import Button from '../../components/button';
+import {View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Input from '../../components/input';
 import Toggle from '../../components/toggle';
+import {selectQuoteToggle} from '../../redux/slices/quote/quoteSelectors';
+import {toggleQuoteFetching} from '../../redux/slices/quote/quoteSlice';
 import {styles} from './style';
 
 const Settings: React.FC = () => {
-  // TODO: Use global state management (redux) -> dispatch actions
-  const saveSettings = () => {
-    console.log('save');
-  };
+  const dispatch = useDispatch();
+  const quotePreference = useSelector(selectQuoteToggle);
 
   const toggleQuote = () => {
-    console.log('toggled');
+    dispatch(toggleQuoteFetching());
   };
 
   return (
@@ -34,12 +34,9 @@ const Settings: React.FC = () => {
           />
         </View>
         <View style={styles.settingItem}>
-          <Toggle onValueChange={toggleQuote} value={true} />
+          <Toggle onValueChange={toggleQuote} value={quotePreference} />
         </View>
       </View>
-      <TouchableOpacity onPress={saveSettings} style={styles.saveButton}>
-        <Button>Save</Button>
-      </TouchableOpacity>
     </View>
   );
 };
