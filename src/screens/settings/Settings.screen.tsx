@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Button from '../../components/button';
-import Header from '../../components/header';
 import Input from '../../components/input';
 import Toggle from '../../components/toggle';
 import {styles} from './style';
@@ -19,10 +18,6 @@ const Settings: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Header />
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Settings</Text>
-      </View>
       <View style={styles.middleContent}>
         <View style={styles.settingItem}>
           <Input

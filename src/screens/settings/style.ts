@@ -9,15 +9,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.colors.background,
   },
-  header: {
-    paddingVertical: theme.spacing.medium,
-    fontSize: 32,
-  },
-  headerText: {
-    fontSize: 32,
-    color: theme.colors.highlight,
-    textAlign: 'left',
-  },
   middleContent: {
     flex: 1,
     justifyContent: 'center',

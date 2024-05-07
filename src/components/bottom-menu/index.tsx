@@ -1,15 +1,19 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
 
-const BottomMenu: React.FC = () => {
-  // TODO: Replace with real navigation and add icons
+type BottomMenuProps = {
+  onPress: () => void;
+};
+
+const BottomMenu: React.FC<BottomMenuProps> = props => {
+  const {onPress} = props;
   return (
     <View style={styles.container}>
-      <View style={styles.tab}>
+      <TouchableOpacity style={styles.tab} onPress={onPress}>
         <Text style={styles.text}>Settings</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
