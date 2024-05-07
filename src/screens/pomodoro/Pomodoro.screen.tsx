@@ -6,8 +6,16 @@ import Header from '../../components/header';
 import Quote from '../../components/quote';
 import Timer from '../../components/timer';
 import {styles} from './style';
+import {useSelector} from 'react-redux';
+import {
+  selectWorkTime,
+  selectBreakTime,
+} from '../../redux/slices/timerSelectors';
 
 export default function Pomodoro() {
+  const workDuration = useSelector(selectWorkTime);
+  const breakDuration = useSelector(selectBreakTime);
+
   return (
     <View style={styles.container}>
       <Header />
@@ -16,7 +24,7 @@ export default function Pomodoro() {
         quote={'The Force will be with you, always.'}
       />
       <View style={styles.middleContent}>
-        <Timer workDuration={5} breakDuration={5} />
+        <Timer workDuration={workDuration} breakDuration={breakDuration} />
       </View>
       <View style={styles.bottomButtons}>
         <BottomMenu />
