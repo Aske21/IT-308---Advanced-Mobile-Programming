@@ -30,7 +30,7 @@ export default function Pomodoro({
     <View style={styles.container}>
       <Quote
         author={'Obi-Wan Kenobi'}
-        quote={'The Force will be with you, always.'}
+        quote={'May the Force be with you, always.'}
       />
       <View style={styles.middleContent}>
         <Timer workDuration={workDuration} breakDuration={breakDuration} />
