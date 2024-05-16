@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect, useRef} from 'react';
 
 const usePomodoro = (workDuration: number, breakDuration: number) => {
@@ -8,23 +9,29 @@ const usePomodoro = (workDuration: number, breakDuration: number) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!isRunning) {
-      setRemainingTime(isWorking ? workDuration : breakDuration);
-      return;
-    }
-
     const handleTick = () => {
       setRemainingTime(prevTime => {
         if (prevTime > 0) {
           return prevTime - 1;
         } else {
-          setIsWorking(prevIsWorking => !prevIsWorking);
-          return isWorking ? breakDuration : workDuration;
+          setIsWorking(prevIsWorking => {
+            if (prevIsWorking) {
+              setIsWorking(false);
+              setRemainingTime(breakDuration);
+            } else {
+              setIsWorking(true);
+              setRemainingTime(workDuration);
+            }
+            return prevIsWorking;
+          });
+          return prevTime;
         }
       });
     };
 
-    intervalRef.current = setInterval(handleTick, 1000);
+    if (isRunning) {
+      intervalRef.current = setInterval(handleTick, 1000);
+    }
 
     return () => {
       if (intervalRef.current) {
@@ -32,10 +39,17 @@ const usePomodoro = (workDuration: number, breakDuration: number) => {
         intervalRef.current = null;
       }
     };
-  }, [isRunning, isWorking, workDuration, breakDuration]);
+  }, [isRunning, workDuration, breakDuration]);
 
-  const startTimer = () => setIsRunning(true);
+  useEffect(() => {
+    if (!isRunning) {
+      setIsWorking(true);
+      setRemainingTime(workDuration);
+    }
+  }, [workDuration, breakDuration]);
+
   const stopTimer = () => setIsRunning(false);
+  const startTimer = () => setIsRunning(true);
   const resetTimer = () => {
     setIsRunning(false);
     setIsWorking(true);

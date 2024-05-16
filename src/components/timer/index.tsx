@@ -3,23 +3,24 @@ import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {formatTime} from '../../utils/formatTime';
 import {timerStyles} from './style';
-import usePomodoro from '../../hooks/usePomodoro';
 
 interface TimerProps {
-  workDuration: number;
-  breakDuration: number;
+  remainingTime: number;
+  isWorking: boolean;
+  isRunning: boolean;
+  startTimer: () => void;
+  stopTimer: () => void;
+  resetTimer: () => void;
 }
 
-const Timer: React.FC<TimerProps> = ({workDuration, breakDuration}) => {
-  const {
-    remainingTime,
-    isWorking,
-    isRunning,
-    startTimer,
-    stopTimer,
-    resetTimer,
-  } = usePomodoro(workDuration, breakDuration);
-
+const Timer: React.FC<TimerProps> = ({
+  isRunning,
+  isWorking,
+  remainingTime,
+  resetTimer,
+  startTimer,
+  stopTimer,
+}) => {
   const timerToggle = () => {
     if (isRunning) {
       stopTimer();

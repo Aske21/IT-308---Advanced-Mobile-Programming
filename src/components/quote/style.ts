@@ -4,12 +4,14 @@ import {theme} from '../../constants/theme';
 
 export const quoteStyles = StyleSheet.create({
   container: {
-    marginHorizontal: theme.spacing.large,
+    position: 'absolute',
+    top: theme.spacing.large,
+    left: theme.spacing.large,
+    right: theme.spacing.large,
     paddingHorizontal: theme.spacing.medium,
     paddingVertical: theme.spacing.medium,
     backgroundColor: theme.colors.surface,
     borderRadius: theme.borderRadius.medium,
-    marginTop: theme.spacing.large,
   },
   quoteText: {
     fontStyle: 'italic',
