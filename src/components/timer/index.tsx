@@ -1,45 +1,32 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {formatTime} from '../../utils/formatTime';
 import {timerStyles} from './style';
 
 interface TimerProps {
-  workDuration: number;
-  breakDuration: number;
+  remainingTime: number;
+  isWorking: boolean;
+  isRunning: boolean;
+  startTimer: () => void;
+  stopTimer: () => void;
+  resetTimer: () => void;
 }
 
-const Timer: React.FC<TimerProps> = ({workDuration, breakDuration}) => {
-  const [remainingTime, setRemainingTime] = useState(workDuration);
-  const [isWorking, setIsWorking] = useState(true);
-  const [isRunning, setIsRunning] = useState(false);
-
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    const handleTick = () => {
-      setRemainingTime(prevTime => prevTime - 1);
-    };
-
-    if (isRunning && remainingTime > 0) {
-      intervalId = setInterval(handleTick, 1000);
-    } else if (remainingTime === 0 && isWorking) {
-      setIsWorking(false);
-      setIsRunning(false);
-      setRemainingTime(breakDuration);
-      setIsRunning(true);
-    }
-
-    return () => clearInterval(intervalId);
-  }, [isRunning, remainingTime, workDuration, breakDuration, isWorking]);
-
+const Timer: React.FC<TimerProps> = ({
+  isRunning,
+  isWorking,
+  remainingTime,
+  resetTimer,
+  startTimer,
+  stopTimer,
+}) => {
   const timerToggle = () => {
-    setIsRunning(!isRunning);
-  };
-  const timerReset = () => {
-    setIsRunning(false);
-    setIsWorking(true);
-    setRemainingTime(workDuration);
+    if (isRunning) {
+      stopTimer();
+    } else {
+      startTimer();
+    }
   };
 
   return (
@@ -56,7 +43,7 @@ const Timer: React.FC<TimerProps> = ({workDuration, breakDuration}) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={timerReset}>
+      <TouchableOpacity onPress={resetTimer}>
         <View style={timerStyles.resetButton}>
           <Text style={timerStyles.resetButtonText}>Reset</Text>
         </View>

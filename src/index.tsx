@@ -1,8 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import Pomodoro from './screens/pomodoro/Pomodoro.screen';
-// import Settings from './screens/settings/Settings.screen';
+import {Provider} from 'react-redux';
+import AppNavigator from './navigation/AppNavigator';
+import store from './redux/store';
 
 export default function App() {
-  return <Pomodoro />;
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
 }

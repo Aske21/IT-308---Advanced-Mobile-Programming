@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {View, TextInput, Text} from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  KeyboardTypeOptions,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native';
 import {inputStyles} from './style';
 
 interface InputProps {
@@ -8,6 +15,10 @@ interface InputProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
+  keyboardType?: KeyboardTypeOptions | undefined;
+  onBlur?:
+    | ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void)
+    | undefined;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -15,6 +26,8 @@ const Input: React.FC<InputProps> = ({
   value,
   onChangeText,
   placeholder,
+  keyboardType,
+  onBlur,
 }) => {
   return (
     <View style={inputStyles.container}>
@@ -25,6 +38,8 @@ const Input: React.FC<InputProps> = ({
         onChangeText={onChangeText}
         placeholder={placeholder}
         placeholderTextColor="#A9A9A9"
+        keyboardType={keyboardType}
+        onBlur={onBlur}
       />
     </View>
   );

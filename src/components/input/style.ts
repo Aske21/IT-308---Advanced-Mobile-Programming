@@ -5,15 +5,14 @@ import {theme} from '../../constants/theme';
 export const inputStyles = StyleSheet.create({
   container: {
     marginBottom: theme.spacing.medium,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
     width: '100%',
-    justifyContent: 'space-between',
   },
   label: {
     marginBottom: theme.spacing.small,
     color: theme.colors.text,
     fontSize: 16,
+    fontWeight: '600',
   },
   input: {
     borderWidth: 1,
@@ -22,6 +21,6 @@ export const inputStyles = StyleSheet.create({
     padding: theme.spacing.small,
     fontSize: theme.typography.p.fontSize,
     color: theme.colors.text,
-    width: '60%',
+    width: '100%',
   },
 });
